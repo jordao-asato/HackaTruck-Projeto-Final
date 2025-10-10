@@ -1,0 +1,252 @@
+[
+    {
+        "id": "f8e749349d5c32bd",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "88ac72f56906a01f",
+        "type": "http in",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "url": "/remedioPOST",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 280,
+        "wires": [
+            [
+                "ade934f16125d60a"
+            ]
+        ]
+    },
+    {
+        "id": "ade934f16125d60a",
+        "type": "cloudantplus out",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "cloudant": "aee7e5afabc41bce",
+        "database": "jordaobd",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 520,
+        "y": 280,
+        "wires": [
+            [
+                "b3604e56ee335d41"
+            ]
+        ]
+    },
+    {
+        "id": "b3604e56ee335d41",
+        "type": "http response",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 710,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3dcdabfc45e82ff8",
+        "type": "cloudantplus in",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "cloudant": "aee7e5afabc41bce",
+        "database": "jordaobd",
+        "service": "_ext_",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [
+                "4c51b71fe357c3e5"
+            ]
+        ]
+    },
+    {
+        "id": "77b57fcd10aded59",
+        "type": "http in",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "url": "remedioGET",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 200,
+        "wires": [
+            [
+                "3dcdabfc45e82ff8"
+            ]
+        ]
+    },
+    {
+        "id": "4c51b71fe357c3e5",
+        "type": "http response",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ccb333856f29667d",
+        "type": "http in",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "url": "/remedioDELETE",
+        "method": "delete",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 380,
+        "wires": [
+            [
+                "d258953516189782"
+            ]
+        ]
+    },
+    {
+        "id": "f9cdb2c6d4a45480",
+        "type": "cloudantplus out",
+        "z": "f8e749349d5c32bd",
+        "name": "delete",
+        "cloudant": "aee7e5afabc41bce",
+        "database": "jordaobd",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "delete",
+        "x": 670,
+        "y": 400,
+        "wires": [
+            [
+                "0635c83ed77ca40e"
+            ]
+        ]
+    },
+    {
+        "id": "0635c83ed77ca40e",
+        "type": "http response",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 830,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "7c8639845b52287c",
+        "type": "split",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 450,
+        "y": 340,
+        "wires": [
+            [
+                "f9cdb2c6d4a45480"
+            ]
+        ]
+    },
+    {
+        "id": "d258953516189782",
+        "type": "switch",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "istype",
+                "v": "array",
+                "vt": "array"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 400,
+        "wires": [
+            [
+                "7c8639845b52287c"
+            ],
+            [
+                "f9cdb2c6d4a45480"
+            ]
+        ]
+    },
+    {
+        "id": "5d95ec35206a0df4",
+        "type": "http in",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "url": "/remedioPUT",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 540,
+        "wires": [
+            [
+                "c5e2e101feceaad8"
+            ]
+        ]
+    },
+    {
+        "id": "bc52ea979d20988d",
+        "type": "http response",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 710,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "c5e2e101feceaad8",
+        "type": "cloudantplus out",
+        "z": "f8e749349d5c32bd",
+        "name": "",
+        "cloudant": "aee7e5afabc41bce",
+        "database": "jordaobd",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 460,
+        "y": 540,
+        "wires": [
+            [
+                "bc52ea979d20988d"
+            ]
+        ]
+    },
+    {
+        "id": "aee7e5afabc41bce",
+        "type": "cloudantplus",
+        "host": "https://f1c0dcf9-5075-4061-a1f8-2f4ca596058a-bluemix.cloudantnosqldb.appdomain.cloud",
+        "name": "jordao123",
+        "useapikey": true
+    }
+]
